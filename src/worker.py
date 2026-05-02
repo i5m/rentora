@@ -23,7 +23,7 @@ Why SSE only (not Streamable HTTP) for now?
 
 from workers import DurableObject
 
-from models import LocationInput, RentInput, HouseInput, InvestmentInput, HelocInput
+from models import LocationInput, RentInput, HouseInput, InvestmentInput, HelocInput, InflationInput
 from calculators.simulation import run_simulation
 
 
@@ -40,6 +40,7 @@ def setup_server():
         location: LocationInput,
         rent: RentInput,
         house: HouseInput,
+        inflation: InflationInput,
         investments: InvestmentInput,
         heloc: HelocInput,
         years_to_simulate: int = 30
@@ -53,6 +54,7 @@ def setup_server():
             location: The location details (country, zip code)
             rent: The rental parameters
             house: The home purchase parameters
+            inflation: The inflation parameters
             investments: The investment parameters
             heloc: The Home Equity Line of Credit parameters
             years_to_simulate: Number of years to run the calculation (default 30)
@@ -64,6 +66,7 @@ def setup_server():
             location=location,
             rent=rent,
             house=house,
+            inflation=inflation,
             investments=investments,
             heloc=heloc,
             years_to_simulate=years_to_simulate

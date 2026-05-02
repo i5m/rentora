@@ -1,7 +1,7 @@
 from models import HouseInput
 
 class BuyCalculator:
-    def __init__(self, house_input: HouseInput):
+    def __init__(self, house_input: HouseInput, inflation_rate: float):
         self.total_cost = house_input.total_cost
         self.down_payment = self.total_cost * (house_input.down_payment_percentage / 100.0)
         self.closing_cost = house_input.closing_cost
@@ -21,10 +21,12 @@ class BuyCalculator:
         self.current_home_value = self.total_cost
         self.remaining_loan = self.loan_amount
         self.monthly_utilities = house_input.monthly_utilities
-        self.appreciation = house_input.appreciation_yoy / 100.0
+        self.appreciation = house_input.yoy_appreciation_percentage / 100.0
         self.annual_insurance = house_input.annual_insurance
         self.property_tax_rate = house_input.property_tax_percentage / 100.0
         self.pmi_rate = house_input.pmi / 100.0  # assume it's annual % of original loan
+        self.inflation_rate = inflation_rate
+        self.assessed_home_value = self.total_cost
 
     def get_initial_out_of_pocket(self) -> float:
         return self.down_payment + self.closing_cost
@@ -53,7 +55,7 @@ class BuyCalculator:
             self.remaining_loan = 0
             
         utilities_cost = self.monthly_utilities * 12
-        property_tax = self.current_home_value * self.property_tax_rate
+        property_tax = self.assessed_home_value * self.property_tax_rate
         insurance_cost = self.annual_insurance
         
         # Calculate PMI (drops off at 80% LTV of ORIGINAL purchase price usually)
@@ -61,7 +63,7 @@ class BuyCalculator:
         pmi_cost = 0
         if ltv > 0.80 and is_mortgage_active:
             pmi_cost = self.loan_amount * self.pmi_rate
-            
+
         total_yearly_cost = yearly_mortgage_payment + utilities_cost + property_tax + insurance_cost + pmi_cost
         
         # Record stats before appreciating for the next year
@@ -69,8 +71,9 @@ class BuyCalculator:
         
         # Appreciate home and costs for next year
         self.current_home_value *= (1 + self.appreciation)
-        self.monthly_utilities *= (1 + self.appreciation) # assume utilities inflate
-        self.annual_insurance *= (1 + self.appreciation) # assume insurance inflates
+        self.assessed_home_value *= (1 + self.inflation_rate)
+        self.monthly_utilities *= (1 + self.inflation_rate) # assume utilities inflate
+        self.annual_insurance *= (1 + self.inflation_rate) # assume insurance inflates
         
         return {
             "year": year,

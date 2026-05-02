@@ -1,5 +1,8 @@
 from pydantic import BaseModel, Field
 
+class InflationInput(BaseModel):
+    annual_increase_percentage: float
+
 class LocationInput(BaseModel):
     country: str
     zip_code: str
@@ -15,7 +18,7 @@ class HouseInput(BaseModel):
     mortgage_interest_rate: float
     mortgage_years: int
     monthly_utilities: float
-    appreciation_yoy: float
+    yoy_appreciation_percentage: float
     closing_cost: float
     down_payment_percentage: float
     annual_insurance: float

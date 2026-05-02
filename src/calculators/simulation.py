@@ -1,4 +1,4 @@
-from models import LocationInput, RentInput, HouseInput, InvestmentInput, HelocInput
+from models import LocationInput, RentInput, HouseInput, InvestmentInput, HelocInput, InflationInput
 from calculators.rent_calculator import RentCalculator
 from calculators.buy_calculator import BuyCalculator
 from calculators.investment_calculator import InvestmentCalculator
@@ -8,13 +8,14 @@ def run_simulation(
     location: LocationInput,
     rent: RentInput,
     house: HouseInput,
+    inflation: InflationInput,
     investments: InvestmentInput,
     heloc: HelocInput,
     years_to_simulate: int = 30
 ) -> dict:
     
-    rent_calc = RentCalculator(rent)
-    buy_calc = BuyCalculator(house)
+    rent_calc = RentCalculator(rent, inflation.annual_increase_percentage / 100.0)
+    buy_calc = BuyCalculator(house, inflation.annual_increase_percentage / 100.0)
     heloc_calc = HelocCalculator(heloc)
     
     # Renter starts with the buyer's initial out of pocket costs (down payment + closing costs)
@@ -88,7 +89,11 @@ def run_simulation(
             "heloc_balance": heloc_stats["remaining_balance"],
             "buyer_investment_principal": buyer_inv_stats["investment_principal"],
             "buyer_investment_total": buyer_inv_stats["investment_total"],
-            "buyer_net_worth": buyer_net_worth
+            "buyer_net_worth": buyer_net_worth,
+            
+            # Comparison
+            "networth_difference_absolute": buyer_net_worth - renter_net_worth,
+            "networth_difference_percentage": ((buyer_net_worth - renter_net_worth) / renter_net_worth * 100) if renter_net_worth != 0 else 0
         })
         
     best_option = "Buy" if yearly_results[-1]["buyer_net_worth"] > yearly_results[-1]["renter_net_worth"] else "Rent"

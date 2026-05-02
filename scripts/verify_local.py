@@ -44,12 +44,15 @@ async def main(url: str) -> int:
                     "mortgage_interest_rate": 6.5,
                     "mortgage_years": 30,
                     "monthly_utilities": 250,
-                    "appreciation_yoy": 3.0,
+                    "yoy_appreciation_percentage": 3.0,
                     "closing_cost": 8000,
                     "down_payment_percentage": 20,
                     "annual_insurance": 1200,
                     "property_tax_percentage": 1.2,
                     "pmi": 0.5
+                },
+                "inflation": {
+                    "annual_increase_percentage": 2.5
                 },
                 "investments": {
                     "annual_increase_percentage": 7.0
