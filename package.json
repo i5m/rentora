@@ -1,0 +1,15 @@
+{
+  "name": "rentora-mcp",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Python MCP server (FastMCP) hosted on Cloudflare Workers",
+  "scripts": {
+    "build": "uv run pywrangler sync",
+    "dev": "uv run pywrangler dev",
+    "deploy": "uv run pywrangler deploy",
+    "test": "uv run pytest tests"
+  },
+  "devDependencies": {
+    "wrangler": "^4.79.0"
+  }
+}
