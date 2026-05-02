@@ -37,7 +37,7 @@ async def main(url: str) -> int:
                     "monthly_rent": 2000,
                     "monthly_utilities": 150,
                     "yoy_increase_percentage": 3.0,
-                    "annual_insurance_amount": 300
+                    "annual_insurance_amount": 300,
                 },
                 "house": {
                     "total_cost": 400000,
@@ -49,33 +49,29 @@ async def main(url: str) -> int:
                     "down_payment_percentage": 20,
                     "annual_insurance": 1200,
                     "property_tax_percentage": 1.2,
-                    "pmi": 0.5
+                    "pmi": 0.5,
                 },
-                "inflation": {
-                    "annual_increase_percentage": 2.5
-                },
-                "investments": {
-                    "annual_increase_percentage": 7.0
-                },
+                "inflation": {"annual_increase_percentage": 2.5},
+                "investments": {"annual_increase_percentage": 7.0},
                 "heloc": {
                     "interest_rate_percentage": 8.0,
-                    "loan_lenth_years": 15,
+                    "loan_length_years": 15,
                     "after_years": 10,
-                    "ltv_cap": 0.8
+                    "ltv_cap": 0.8,
                 },
-                "years_to_simulate": 30
+                "years_to_simulate": 30,
             }
-            
-            print(f"Calling rent_vs_buy tool...")
+
+            print("Calling rent_vs_buy tool...")
             result = await session.call_tool("rent_vs_buy", test_payload)
             payload = json.loads(result.content[0].text)
-            
+
             if "yearly_breakdown" in payload and len(payload["yearly_breakdown"]) == 30:
                 print(f"  OK. Break-even year: {payload.get('break_even_year')}")
             else:
                 print(f"FAIL: Bad response payload: {payload.keys()}")
                 return 1
-            
+
     print("All checks passed.")
     return 0
 

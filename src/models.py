@@ -1,35 +1,60 @@
+"""Pydantic input models for the `rent_vs_buy` MCP tool.
+
+All percentage fields are expressed as percent (e.g. 6.5 means 6.5%) unless the
+field name explicitly says otherwise (e.g. `ltv_cap` is a 0..1 ratio).
+"""
+
 from pydantic import BaseModel, Field
 
+
 class InflationInput(BaseModel):
-    annual_increase_percentage: float
+    annual_increase_percentage: float = Field(
+        ge=-100, description="Annual inflation in percent. Can be negative."
+    )
+
 
 class LocationInput(BaseModel):
-    country: str
-    zip_code: str
+    country: str = Field(min_length=1)
+    zip_code: str = Field(min_length=1)
+
 
 class RentInput(BaseModel):
-    monthly_rent: float
-    monthly_utilities: float
-    yoy_increase_percentage: float
-    annual_insurance_amount: float
+    monthly_rent: float = Field(ge=0)
+    monthly_utilities: float = Field(ge=0)
+    yoy_increase_percentage: float = Field(
+        ge=-100, description="Year-over-year rent change in percent. Can be negative."
+    )
+    annual_insurance_amount: float = Field(ge=0)
+
 
 class HouseInput(BaseModel):
-    total_cost: float
-    mortgage_interest_rate: float
-    mortgage_years: int
-    monthly_utilities: float
-    yoy_appreciation_percentage: float
-    closing_cost: float
-    down_payment_percentage: float
-    annual_insurance: float
-    property_tax_percentage: float
-    pmi: float
+    total_cost: float = Field(gt=0)
+    mortgage_interest_rate: float = Field(ge=0, description="Annual rate in percent.")
+    mortgage_years: int = Field(gt=0)
+    monthly_utilities: float = Field(ge=0)
+    yoy_appreciation_percentage: float = Field(
+        ge=-100, description="Annual home-value change in percent. Can be negative."
+    )
+    closing_cost: float = Field(ge=0)
+    down_payment_percentage: float = Field(ge=0, le=100)
+    annual_insurance: float = Field(ge=0)
+    property_tax_percentage: float = Field(ge=0)
+    pmi: float = Field(
+        ge=0,
+        description="PMI as an annual percent of the original loan. Only applied when LTV > 80%.",
+    )
+
 
 class InvestmentInput(BaseModel):
-    annual_increase_percentage: float
+    annual_increase_percentage: float = Field(
+        ge=-100, description="Expected annual return in percent. Can be negative."
+    )
+
 
 class HelocInput(BaseModel):
-    interest_rate_percentage: float
-    loan_lenth_years: int
-    after_years: int
-    ltv_cap: float = Field(default=0.80, description="Fixed at 80%")
+    interest_rate_percentage: float = Field(ge=0, description="Annual rate in percent.")
+    loan_length_years: int = Field(gt=0)
+    after_years: int = Field(ge=0, description="Year (0-indexed) at which to take the HELOC.")
+    ltv_cap: float = Field(
+        default=0.80, gt=0, le=1, description="Maximum LTV ratio (0..1). Defaults to 0.80."
+    )
