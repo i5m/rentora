@@ -27,28 +27,52 @@ async def main(url: str) -> int:
             tools = await session.list_tools()
             tool_names = sorted(t.name for t in tools.tools)
             print(f"  tools: {tool_names}")
-            if tool_names != ["name_value"]:
-                print(f"FAIL: expected ['name_value'], got {tool_names}")
+            if tool_names != ["rent_vs_buy"]:
+                print(f"FAIL: expected ['rent_vs_buy'], got {tool_names}")
                 return 1
 
-            cases: list[tuple[str, int]] = [
-                ("Cat", 24),
-                ("Hello, World!", 124),
-                ("", 0),
-                ("Cloudflare", 97),
-            ]
-            failed = False
-            for name, expected_total in cases:
-                result = await session.call_tool("name_value", {"name": name})
-                payload = json.loads(result.content[0].text)
-                got_total = payload["total"]
-                marker = "OK" if got_total == expected_total else "FAIL"
-                print(f"  name_value({name!r}) -> {payload}  [{marker}]")
-                if got_total != expected_total:
-                    failed = True
-
-            if failed:
+            test_payload = {
+                "location": {"country": "US", "zip_code": "10001"},
+                "rent": {
+                    "monthly_rent": 2000,
+                    "monthly_utilities": 150,
+                    "yoy_increase_percentage": 3.0,
+                    "annual_insurance_amount": 300
+                },
+                "house": {
+                    "total_cost": 400000,
+                    "mortgage_interest_rate": 6.5,
+                    "mortgage_years": 30,
+                    "monthly_utilities": 250,
+                    "appreciation_yoy": 3.0,
+                    "closing_cost": 8000,
+                    "down_payment_percentage": 20,
+                    "annual_insurance": 1200,
+                    "property_tax_percentage": 1.2,
+                    "pmi": 0.5
+                },
+                "investments": {
+                    "annual_increase_percentage": 7.0
+                },
+                "heloc": {
+                    "interest_rate_percentage": 8.0,
+                    "loan_lenth_years": 15,
+                    "after_years": 10,
+                    "ltv_cap": 0.8
+                },
+                "years_to_simulate": 30
+            }
+            
+            print(f"Calling rent_vs_buy tool...")
+            result = await session.call_tool("rent_vs_buy", test_payload)
+            payload = json.loads(result.content[0].text)
+            
+            if "yearly_breakdown" in payload and len(payload["yearly_breakdown"]) == 30:
+                print(f"  OK. Break-even year: {payload.get('break_even_year')}")
+            else:
+                print(f"FAIL: Bad response payload: {payload.keys()}")
                 return 1
+            
     print("All checks passed.")
     return 0
 

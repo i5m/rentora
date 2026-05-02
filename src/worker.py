@@ -23,7 +23,8 @@ Why SSE only (not Streamable HTTP) for now?
 
 from workers import DurableObject
 
-from name_value import compute_name_value
+from models import LocationInput, RentInput, HouseInput, InvestmentInput, HelocInput
+from calculators.simulation import run_simulation
 
 
 def setup_server():
@@ -35,20 +36,38 @@ def setup_server():
     mcp = FastMCP("rentora")
 
     @mcp.tool()
-    def name_value(name: str) -> dict:
-        """Sum the alphabetic values of letters in `name` (A=1, B=2, ..., Z=26).
-
-        Non-letter characters (digits, whitespace, punctuation, accented or
-        non-ASCII letters) are ignored. Matching is case-insensitive.
-
+    def rent_vs_buy(
+        location: LocationInput,
+        rent: RentInput,
+        house: HouseInput,
+        investments: InvestmentInput,
+        heloc: HelocInput,
+        years_to_simulate: int = 30
+    ) -> dict:
+        """Calculates the financial projection of renting vs buying a house over a number of years.
+        
+        This tool provides purely mathematical projections based on the provided inputs.
+        It does NOT provide financial advice.
+        
         Args:
-            name: The string to score.
-
+            location: The location details (country, zip code)
+            rent: The rental parameters
+            house: The home purchase parameters
+            investments: The investment parameters
+            heloc: The Home Equity Line of Credit parameters
+            years_to_simulate: Number of years to run the calculation (default 30)
+            
         Returns:
-            A dict with the original input, the count of letters scored, and
-            the total numeric value.
+            A year-by-year breakdown of costs, net worths, break-even point, and best option.
         """
-        return dict(compute_name_value(name))
+        return run_simulation(
+            location=location,
+            rent=rent,
+            house=house,
+            investments=investments,
+            heloc=heloc,
+            years_to_simulate=years_to_simulate
+        )
 
     app = mcp.sse_app()
     app.add_exception_handler(HTTPException, http_exception)

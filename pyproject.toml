@@ -1,9 +1,9 @@
 [project]
 name = "rentora-mcp"
 version = "0.1.0"
-description = "A Python MCP server that sums letter values (A=1..Z=26) for a given name, hosted on Cloudflare Workers."
+description = "A Python MCP server for housing decisions: renting vs buying."
 requires-python = "==3.12.*"
-dependencies = ["mcp", "structlog"]
+dependencies = ["mcp", "structlog", "pydantic"]
 
 [dependency-groups]
 dev = ["workers-py", "pytest", "pytest-asyncio", "ruff"]
