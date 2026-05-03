@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rentora — AI-Powered Rent vs Buy Calculator</title>
+  <meta name="description" content="Rentora is an MCP-powered financial simulation tool that projects the year-by-year outcome of renting vs buying a home. Works with Claude, ChatGPT, and any MCP-compatible AI agent.">
+  <meta name="keywords" content="rent vs buy, housing calculator, MCP, Claude, ChatGPT, financial simulation, mortgage, HELOC">
+  <meta property="og:title" content="Rentora — AI-Powered Rent vs Buy Calculator">
+  <meta property="og:description" content="Year-by-year financial projections for renting vs buying. Powered by MCP. Works with Claude and ChatGPT.">
+  <meta property="og:type" content="website">
+  <link rel="icon" href="assets/logo.png" type="image/png">
+  <link rel="stylesheet" href="index.css">
+</head>
+<body>
+
+<!-- ─── NAVIGATION ─── -->
+<nav class="nav" id="main-nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="assets/logo.png" alt="Rentora logo">
+      <span>Rentora</span>
+    </a>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="#problem">The Problem</a></li>
+      <li><a href="#features">Features</a></li>
+      <li><a href="#get-started">Get Started</a></li>
+      <li><a href="#how-it-works">How It Works</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="https://github.com/i5m/rentora" class="nav-cta" target="_blank">⭐ Star on GitHub</a>
+    <button class="hamburger" id="hamburger" aria-label="Toggle navigation">☰</button>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero" id="hero">
+  <div class="hero-content">
+    <div class="hero-badge"><span class="dot"></span> Open-Source MCP Tool</div>
+    <h1>Should you <span class="gradient">rent</span> or <span class="gradient">buy</span>?<br>Let the math decide.</h1>
+    <p>Rentora is an AI-powered financial simulation tool that projects year-by-year outcomes of renting vs buying a home — with mortgage amortization, HELOC modeling, and investment opportunity costs built in.</p>
+    <div class="hero-buttons">
+      <a href="#get-started" class="btn-primary">Get Started →</a>
+      <a href="https://github.com/i5m/rentora" class="btn-secondary" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── THE PROBLEM ─── -->
+<section class="problem-section" id="problem">
+  <div class="problem-inner">
+    <p class="section-label fade-up">The Problem</p>
+    <h2 class="section-title fade-up">Why existing tools fall short</h2>
+    <p class="section-desc fade-up">The rent vs buy decision is one of the biggest financial choices you'll make — yet the tools available today leave you guessing.</p>
+    <div class="problem-grid">
+      <div class="problem-card fade-up">
+        <div class="problem-icon">📉</div>
+        <h3>Spreadsheets &amp; Calculators Miss the Full Picture</h3>
+        <p>Most rent vs buy spreadsheets and online calculators only factor in a handful of variables — mortgage vs rent, maybe appreciation. They ignore PMI expiration, HELOC reinvestment strategies, inflation on utilities and insurance, investment opportunity cost of your down payment, and dozens of other variables that dramatically change the outcome.</p>
+      </div>
+      <div class="problem-card fade-up">
+        <div class="problem-icon">🤖</div>
+        <h3>No Tools That Connect With AI</h3>
+        <p>AI assistants like Claude and ChatGPT can analyze data, explain trade-offs, and answer follow-up questions — but they have no access to a rigorous financial simulation engine. There's no tool that lets your AI run a real, multi-variable rent vs buy projection and give you a grounded, data-backed answer instead of generic advice.</p>
+      </div>
+    </div>
+    <div class="problem-solution fade-up">
+      <div class="solution-arrow">↓</div>
+      <p class="solution-text">Rentora solves both — a <strong>comprehensive simulation engine</strong> that plugs directly into your <strong>AI assistant</strong> via the open MCP standard.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FEATURES ─── -->
+<section class="features" id="features">
+  <p class="section-label fade-up">Why Rentora</p>
+  <h2 class="section-title fade-up">Everything you need for an informed decision</h2>
+  <p class="section-desc fade-up">Pure math, no opinions. Rentora crunches the numbers so your AI assistant can give you a clear, grounded answer.</p>
+  <div class="features-grid">
+    <div class="feature-card fade-up">
+      <div class="feature-icon">📊</div>
+      <h3>Year-by-Year Breakdown</h3>
+      <p>Get a detailed annual projection showing rent cost, buy cost, net worth for both paths, and the exact break-even year.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon">🏦</div>
+      <h3>Full Mortgage Modeling</h3>
+      <p>Amortization schedules, PMI tracking, property tax, insurance, and closing costs — all accounted for automatically.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon">📈</div>
+      <h3>Investment Opportunity Cost</h3>
+      <p>"Smart renter" comparison: your down payment gets invested instead, compounding year over year at your chosen return rate.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon">🏠</div>
+      <h3>HELOC Reinvestment</h3>
+      <p>Model borrowing against home equity at year N and reinvesting the proceeds — a real strategy many homeowners use.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon">💹</div>
+      <h3>Inflation-Aware</h3>
+      <p>Utilities, insurance, and property taxes all escalate with inflation. Rent grows at its own configurable rate.</p>
+    </div>
+    <div class="feature-card fade-up">
+      <div class="feature-icon">🤖</div>
+      <h3>Works with Any AI</h3>
+      <p>Built on the open MCP standard. Use with Claude, ChatGPT, Cursor, or any MCP-compatible client or agent.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── GET STARTED ─── -->
+<section class="get-started" id="get-started">
+  <div class="get-started-inner">
+    <p class="section-label fade-up">Get Started</p>
+    <h2 class="section-title fade-up">Choose your setup</h2>
+    <p class="section-desc fade-up">Install Rentora as an MCP connector, agent skill, ChatGPT app, or use it directly with any MCP-compatible tool.</p>
+
+    <div class="cards-grid">
+
+      <!-- Card 1: Install Connector on Claude -->
+      <div class="start-card fade-up" id="install-connector">
+        <div class="card-header">
+          <div class="card-icon claude">🔌</div>
+          <h3>Install Connector on Claude</h3>
+        </div>
+        <p class="card-desc">Add Rentora as a connector in Claude to get instant rent vs buy analysis in your conversations.</p>
+        <div class="step"><div class="step-num">1</div><p>Go to <a href="https://claude.ai/customize/connectors" target="_blank" style="color: var(--accent-cyan);">claude.ai/customize/connectors</a></p></div>
+        <div class="step"><div class="step-num">2</div><p>Click <strong>"+ Install Connector"</strong></p></div>
+        <div class="step"><div class="step-num">3</div><p>Paste the MCP link shown below</p></div>
+        <div class="code-block" id="mcp-link-connector">https://rentora-mcp.mathur5ishan.workers.dev/sse</div>
+        <div class="card-ctas">
+          <a href="https://claude.ai/customize/connectors" class="btn-primary btn-sm" target="_blank">Go to Claude Connectors</a>
+          <button class="btn-secondary btn-sm" onclick="copyMCPLink(this)">📋 Copy MCP Link</button>
+        </div>
+      </div>
+
+      <!-- Card 2: Install Skill on Claude -->
+      <div class="start-card fade-up" id="install-skill">
+        <div class="card-header">
+          <div class="card-icon claude">🧠</div>
+          <h3>Install Skill on Claude</h3>
+        </div>
+        <p class="card-desc">Add Rentora as an Agent Skill in Claude for guided, structured rent vs buy workflows.</p>
+        <div class="step"><div class="step-num">1</div><p>Download the Skills ZIP file</p></div>
+        <div class="step"><div class="step-num">2</div><p>Go to <a href="https://claude.ai/customize/skills" target="_blank" style="color: var(--accent-cyan);">claude.ai/customize/skills</a></p></div>
+        <div class="step"><div class="step-num">3</div><p>Click <strong>"+ Install Skill"</strong></p></div>
+        <div class="step"><div class="step-num">4</div><p>Upload the downloaded ZIP file</p></div>
+        <div class="card-ctas">
+          <a href="https://claude.ai/customize/skills" class="btn-primary btn-sm" target="_blank">Go to Claude Skills</a>
+          <a href="https://raw.githubusercontent.com/i5m/rentora/refs/heads/main/skills/rentora.zip" class="btn-secondary btn-sm" download>⬇ Download Skills</a>
+        </div>
+      </div>
+
+      <!-- Card 3: Install App on ChatGPT -->
+      <div class="start-card fade-up" id="install-chatgpt">
+        <div class="card-header">
+          <div class="card-icon chatgpt">💬</div>
+          <h3>Install App on ChatGPT</h3>
+        </div>
+        <p class="card-desc">Use Rentora through ChatGPT's MCP integration to get rent vs buy analysis in your conversations.</p>
+        <div class="step"><div class="step-num">1</div><p>Go to <a href="https://chatgpt.com/#settings/Connectors" target="_blank" style="color: var(--accent-cyan);">chatgpt.com → Settings → Connectors</a></p></div>
+        <div class="step"><div class="step-num">2</div><p>Click <strong>"+ Create App"</strong></p></div>
+        <div class="step"><div class="step-num">3</div><p>Give it a name and paste the MCP link below</p></div>
+        <div class="code-block" id="mcp-link-chatgpt">https://rentora-mcp.mathur5ishan.workers.dev/sse</div>
+        <div class="card-ctas">
+          <a href="https://chatgpt.com/#settings/Connectors" class="btn-primary btn-sm" target="_blank">Go to ChatGPT Connectors</a>
+          <button class="btn-secondary btn-sm" onclick="copyMCPLink(this)">📋 Copy MCP Link</button>
+        </div>
+      </div>
+
+      <!-- Card 4: Use MCP Tool with AI Agent -->
+      <div class="start-card fade-up" id="use-mcp">
+        <div class="card-header">
+          <div class="card-icon mcp">⚡</div>
+          <h3>Use MCP Tool with AI Agent</h3>
+        </div>
+        <p class="card-desc">Connect any MCP-compatible agent or client to the Rentora server by adding it to your <code>mcp.json</code>.</p>
+        <div class="step"><div class="step-num">1</div><p>Open the <code>mcp.json</code> of your AI Agent</p></div>
+        <div class="step"><div class="step-num">2</div><p>Add the following snippet:</p></div>
+        <div class="code-block">{
+  <span class="key">"mcpServers"</span>: {
+    <span class="key">"rentora"</span>: {
+      <span class="key">"command"</span>: <span class="string">"npx"</span>,
+      <span class="key">"args"</span>: [
+        <span class="string">"mcp-remote"</span>,
+        <span class="string">"https://rentora-mcp.mathur5ishan.workers.dev/sse"</span>
+      ]
+    }
+  }
+}</div>
+        <div class="card-ctas">
+          <a href="https://modelcontextprotocol.io" class="btn-primary btn-sm" target="_blank">MCP Protocol Docs</a>
+          <button class="btn-secondary btn-sm" onclick="copySnippet(this)">📋 Copy Snippet</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ─── -->
+<section class="how-it-works" id="how-it-works">
+  <div class="how-inner">
+    <p class="section-label fade-up">Under the Hood</p>
+    <h2 class="section-title fade-up">How the simulation works</h2>
+    <p class="section-desc fade-up">For each simulated year, the engine runs these steps in order to build a complete financial picture.</p>
+    <div class="flow-diagram fade-up">
+      <div class="flow-step"><div class="flow-icon">🏢</div><div><h4>Compute Renter Costs</h4><p>Monthly rent + utilities + insurance, escalated by YoY rate and inflation.</p></div></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><div class="flow-icon">🏠</div><div><h4>Compute Buyer Costs</h4><p>Mortgage payment, property tax, insurance, utilities, PMI — all inflation-adjusted.</p></div></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><div class="flow-icon">💰</div><div><h4>HELOC Check</h4><p>If the trigger year matches, borrow max equity (capped at LTV) and invest the proceeds.</p></div></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><div class="flow-icon">📈</div><div><h4>Compound Investments</h4><p>Both sides' existing capital earns returns. New contributions land at year-end.</p></div></div>
+      <div class="flow-arrow">↓</div>
+      <div class="flow-step"><div class="flow-icon">⚖️</div><div><h4>Score Net Worth</h4><p>Renter net worth = investments. Buyer = home value − mortgage − HELOC + investments.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── DISCLAIMER ─── -->
+<section style="padding: 3rem 2rem; text-align: center;">
+  <div style="max-width: 600px; margin: 0 auto; padding: 1.5rem 2rem; background: rgba(234,179,8,0.06); border: 1px solid rgba(234,179,8,0.2); border-radius: 12px;">
+    <p style="color: #fbbf24; font-weight: 600; margin-bottom: 0.4rem;">⚠️ Not Financial Advice</p>
+    <p style="color: var(--text-secondary); font-size: 0.88rem;">Rentora returns purely mathematical projections from the inputs you provide. Results should not be interpreted as financial, investment, or legal advice.</p>
+  </div>
+</section>
+
+<!-- ─── CONTACT ─── -->
+<section class="contact-section" id="contact">
+  <div class="contact-inner">
+    <p class="section-label fade-up">Get in Touch</p>
+    <h2 class="section-title fade-up">Contact Developer</h2>
+    <p class="section-desc fade-up">Have questions, feature requests, or want to contribute? Reach out through any of these channels.</p>
+    <div class="contact-cards fade-up">
+      <a href="mailto:mathur5ishan@gmail.com" class="contact-card">
+        <div class="contact-icon">📧</div>
+        <h4>Email</h4>
+        <p>mathur5ishan@gmail.com</p>
+      </a>
+      <a href="https://www.linkedin.com/in/mathur-ishan" target="_blank" class="contact-card">
+        <div class="contact-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+        </div>
+        <h4>LinkedIn</h4>
+        <p>in/mathur-ishan</p>
+      </a>
+      <a href="https://github.com/i5m/rentora/issues/new" target="_blank" class="contact-card">
+        <div class="contact-icon">🐛</div>
+        <h4>GitHub Issues</h4>
+        <p>Report a bug or request a feature</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer class="footer">
+  <div class="footer-links">
+    <a href="https://github.com/i5m/rentora" target="_blank">GitHub</a>
+    <a href="https://modelcontextprotocol.io" target="_blank">MCP Protocol</a>
+    <a href="https://agentskills.io" target="_blank">Agent Skills</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <p>MIT License · Built with Python, FastMCP &amp; Cloudflare Workers</p>
+  <p style="margin-top: 0.3rem;">© 2026 Rentora. Made by <a href="https://github.com/i5m" target="_blank">Ishan</a></p>
+</footer>
+
+<script>
+// MCP Link to copy
+const MCP_LINK = 'https://rentora-mcp.mathur5ishan.workers.dev/sse';
+const MCP_SNIPPET = `{
+  "mcpServers": {
+    "rentora": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://rentora-mcp.mathur5ishan.workers.dev/sse"
+      ]
+    }
+  }
+}`;
+
+function copyMCPLink(btn) {
+  navigator.clipboard.writeText(MCP_LINK).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => btn.textContent = orig, 2000);
+  });
+}
+
+function copySnippet(btn) {
+  navigator.clipboard.writeText(MCP_SNIPPET).then(() => {
+    const orig = btn.textContent;
+    btn.textContent = '✅ Copied!';
+    setTimeout(() => btn.textContent = orig, 2000);
+  });
+}
+
+// Hamburger toggle
+document.getElementById('hamburger').addEventListener('click', () => {
+  document.getElementById('nav-links').classList.toggle('open');
+});
+
+// Close mobile nav on link click
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => document.getElementById('nav-links').classList.remove('open'));
+});
+
+// Scroll animations
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+// Nav background on scroll
+window.addEventListener('scroll', () => {
+  document.getElementById('main-nav').style.background =
+    window.scrollY > 50 ? 'rgba(10, 14, 26, 0.95)' : 'rgba(10, 14, 26, 0.8)';
+});
+</script>
+
+</body>
+</html>
