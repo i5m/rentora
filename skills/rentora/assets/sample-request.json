@@ -1,0 +1,30 @@
+{
+  "location": { "country": "US", "zip_code": "10001" },
+  "rent": {
+    "monthly_rent": 2000,
+    "monthly_utilities": 150,
+    "yoy_increase_percentage": 3.0,
+    "annual_insurance_amount": 300
+  },
+  "house": {
+    "total_cost": 400000,
+    "mortgage_interest_rate": 6.5,
+    "mortgage_years": 30,
+    "monthly_utilities": 250,
+    "yoy_appreciation_percentage": 3.0,
+    "closing_cost": 8000,
+    "down_payment_percentage": 20,
+    "annual_insurance": 1200,
+    "property_tax_percentage": 1.2,
+    "pmi": 0.5
+  },
+  "inflation": { "annual_increase_percentage": 2.5 },
+  "investments": { "annual_increase_percentage": 7.0 },
+  "heloc": {
+    "interest_rate_percentage": 8.0,
+    "loan_length_years": 15,
+    "after_years": 10,
+    "ltv_cap": 0.8
+  },
+  "years_to_simulate": 30
+}

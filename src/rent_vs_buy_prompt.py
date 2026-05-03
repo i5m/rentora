@@ -32,6 +32,7 @@ You are helping someone compare **renting vs buying** using the Rentora MCP tool
    - Parse the tool result **as JSON** from the MCP tool response text (same payload shape hosts already receive from `call_tool`).
    - Use **`yearly_breakdown`**, **`break_even_year`**, **`best_option_at_end`**, and **`location`** **only** from that parsed JSON—not from memory, estimation, or prior turns unless this JSON is present again.
 5. **Optional MCP `prefill`:** The host may supply prompt argument **`prefill`** (partial JSON matching `RentVsBuyPromptPrefill`: nested `location`, `rent`, `house`, etc.). **Merge** those values into the eventual `rent_vs_buy` payload; **still** collect every missing field from the user (or template). **Do not call `rent_vs_buy` until the full tool payload is complete.**
+6. **Show inputs before calling the tool:** Immediately **before** invoking `rent_vs_buy`, present the **complete** scenario in a **user-friendly** way (short labeled sections or a readable table)—**plain-language headings** (e.g. “Rent”, “Home purchase”, “HELOC”), not raw JSON paths only. Include **every** value you will send: from **user replies**, merged **`prefill`**, and any **defaults** (explicitly flag defaults, e.g. “HELOC max LTV: 0.80 (default)”). If the host allows interaction, pause for confirmation or corrections; if not, still print this summary **once** before the tool call so the user can see what was assumed.
 
 ---
 

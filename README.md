@@ -9,6 +9,21 @@ option ends up ahead at the end of the simulation.
 > The tool returns purely mathematical projections from the inputs you give it. It
 > is not financial advice.
 
+## Agent Skill
+
+Some MCP clients do not surface **`prompts/get`** reliably. This repo ships an **[Agent Skill](https://agentskills.io)** alongside the server MCP prompt **`rent_vs_buy_guide`**—same workflow in portable form:
+
+- Skill folder: [`skills/rentora/`](skills/rentora/) (`SKILL.md` plus `references/` and `assets/sample-request.json`).
+- **Validate** layout and golden JSON against [`src/models.py`](src/models.py):
+
+  ```bash
+  uv run python scripts/validate_rentora_skill.py
+  ```
+
+- Optional ([agentskills validation](https://agentskills.io/specification)): `skills-ref validate ./skills/rentora` when `skills-ref` is installed.
+
+Some Cursor workspaces load project skills from **`.cursor/skills/`** only—symlink or copy this folder there if needed.
+
 ## Tool surface
 
 ```text
@@ -176,6 +191,8 @@ swap `mcp.sse_app()` for `mcp.streamable_http_app()`.
 ├── package.json                # wrangler + dev/deploy scripts
 ├── wrangler.jsonc              # Cloudflare Worker config
 ├── README.md
+├── skills/
+│   └── rentora/    # Agent Skill (workflow + references + sample JSON)
 ├── src/
 │   ├── worker.py               # entrypoint + Durable Object + FastMCP setup
 │   ├── models.py               # Pydantic input models
@@ -197,8 +214,9 @@ swap `mcp.sse_app()` for `mcp.streamable_http_app()`.
 │   ├── test_heloc_calculator.py
 │   └── test_simulation.py
 └── scripts/
-    ├── verify_local.py         # end-to-end MCP smoke test against pywrangler dev
-    └── test_sim.py             # local sanity check that runs run_simulation directly
+    ├── verify_local.py              # end-to-end MCP smoke test against pywrangler dev
+    ├── validate_rentora_skill.py    # validate Agent Skill package + sample-request.json
+    └── test_sim.py                  # local sanity check that runs run_simulation directly
 ```
 
 ## License
