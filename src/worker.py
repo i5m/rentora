@@ -31,7 +31,9 @@ from models import (
     InvestmentInput,
     LocationInput,
     RentInput,
+    RentVsBuyPromptPrefill,
 )
+from rent_vs_buy_prompt import rent_vs_buy_guide_messages
 
 
 def setup_server():
@@ -79,6 +81,17 @@ def setup_server():
             years_to_simulate=years_to_simulate,
         )
 
+    @mcp.prompt(
+        name="rent_vs_buy_guide",
+        title="Rent vs buy comparison",
+        description=(
+            "Collect inputs, call rent_vs_buy, and interpret yearly_breakdown "
+            "without inventing numbers."
+        ),
+    )
+    def rent_vs_buy_guide(prefill: RentVsBuyPromptPrefill | None = None) -> list:
+        return rent_vs_buy_guide_messages(prefill=prefill)
+
     app = mcp.sse_app()
     app.add_exception_handler(HTTPException, http_exception)
     app.add_middleware(
@@ -92,7 +105,7 @@ def setup_server():
     return mcp, app
 
 
-class NameValueServer(DurableObject):
+class RentoraServer(DurableObject):
     """Durable Object that owns the FastMCP ASGI app for one logical server."""
 
     def __init__(self, ctx, env):

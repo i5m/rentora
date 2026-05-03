@@ -58,3 +58,18 @@ class HelocInput(BaseModel):
     ltv_cap: float = Field(
         default=0.80, gt=0, le=1, description="Maximum LTV ratio (0..1). Defaults to 0.80."
     )
+
+
+class RentVsBuyPromptPrefill(BaseModel):
+    """Partial scenario fields for MCP prompt argument `prefill` on `rent_vs_buy_guide`.
+
+    Hosts merge this with user answers before calling tool `rent_vs_buy`.
+    """
+
+    location: LocationInput | None = Field(default=None)
+    rent: RentInput | None = Field(default=None)
+    house: HouseInput | None = Field(default=None)
+    inflation: InflationInput | None = Field(default=None)
+    investments: InvestmentInput | None = Field(default=None)
+    heloc: HelocInput | None = Field(default=None)
+    years_to_simulate: int | None = Field(default=None, ge=1)

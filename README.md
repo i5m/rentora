@@ -130,8 +130,8 @@ uv run pywrangler deploy
 ```
 
 After deploy, the server is live at `https://rentora-mcp.<your-account>.workers.dev/sse`.
-The first deploy provisions the `NameValueServer` Durable Object class via the migration
-in `wrangler.jsonc`. (The class is named `NameValueServer` for backwards-compat with the
+The first deploy provisions the `RentoraServer` Durable Object class via the migration
+in `wrangler.jsonc`. (The class is named `RentoraServer` for backwards-compat with the
 initial deployment; renaming it would require a `renamed_classes` migration.)
 
 ### Connect a remote MCP client

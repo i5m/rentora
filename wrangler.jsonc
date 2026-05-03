@@ -19,7 +19,7 @@
     "bindings": [
       {
         "name": "ns",
-        "class_name": "NameValueServer"
+        "class_name": "RentoraServer"
       }
     ]
   },
@@ -27,7 +27,7 @@
     {
       "tag": "v1",
       "new_sqlite_classes": [
-        "NameValueServer"
+        "RentoraServer"
       ]
     }
   ],

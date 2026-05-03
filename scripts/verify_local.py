@@ -27,9 +27,43 @@ async def main(url: str) -> int:
             tools = await session.list_tools()
             tool_names = sorted(t.name for t in tools.tools)
             print(f"  tools: {tool_names}")
-            if tool_names != ["rent_vs_buy"]:
-                print(f"FAIL: expected ['rent_vs_buy'], got {tool_names}")
+            if "rent_vs_buy" not in tool_names:
+                print(f"FAIL: expected rent_vs_buy tool, got {tool_names}")
                 return 1
+
+            prompts = await session.list_prompts()
+            prompt_names = sorted(p.name for p in prompts.prompts)
+            print(f"  prompts: {prompt_names}")
+            if "rent_vs_buy_guide" not in prompt_names:
+                print(f"FAIL: expected rent_vs_buy_guide prompt, got {prompt_names}")
+                return 1
+
+            guide = await session.get_prompt("rent_vs_buy_guide")
+            if not guide.messages:
+                print("FAIL: rent_vs_buy_guide returned no messages")
+                return 1
+            first = guide.messages[0]
+            if first.role != "assistant":
+                print(f"FAIL: expected assistant prompt role, got {first.role!r}")
+                return 1
+            if first.content.type != "text":
+                print(f"FAIL: expected text prompt content, got {first.content.type!r}")
+                return 1
+            if "mandatory workflow instructions" not in first.content.text:
+                print("FAIL: prompt body missing expected preamble")
+                return 1
+            print("  get_prompt(rent_vs_buy_guide) OK")
+
+            partial = {"location": {"country": "US", "zip_code": "90210"}}
+            guide_pre = await session.get_prompt(
+                "rent_vs_buy_guide",
+                arguments={"prefill": json.dumps(partial)},
+            )
+            pre_body = guide_pre.messages[0].content
+            if pre_body.type != "text" or "90210" not in pre_body.text:
+                print("FAIL: prefill prompt did not echo zip code")
+                return 1
+            print("  get_prompt with prefill OK")
 
             test_payload = {
                 "location": {"country": "US", "zip_code": "10001"},
